@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "experimental avancada",
+			"path": ".."
+		},
+		{
+			"name": "dados",
+			"path": "../../../../Downloads/dados/dados"
+		}
+	],
+	"settings": {}
+}
