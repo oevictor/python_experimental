@@ -24,10 +24,10 @@ def tratamento_Isomerico(file_name,cor,relacoao_ao_alfa=True):
     plt.show()
  
 #Esse esta calculando o desvio isometrico em relação ao ferro-alfa 
-# tratamento_Isomerico('Espectroscopia Mössbauer\Dados\Mossbauer_data\Fe-alpha.txt',"red", True)        
-# tratamento_Isomerico(r'Espectroscopia Mössbauer\Dados\Mossbauer_data\aco_inox.txt',"gray",True)
-# tratamento_Isomerico('Espectroscopia Mössbauer\Dados\Mossbauer_data\FeSO4.txt',"blue",True)
-# tratamento_Isomerico('Espectroscopia Mössbauer\Dados\Mossbauer_data\Hematita.txt',"green",True)
+tratamento_Isomerico('Espectroscopia Mössbauer\Dados\Mossbauer_data\Fe-alpha.txt',"red", True)        
+tratamento_Isomerico(r'Espectroscopia Mössbauer\Dados\Mossbauer_data\aco_inox.txt',"gray",True)
+tratamento_Isomerico('Espectroscopia Mössbauer\Dados\Mossbauer_data\FeSO4.txt',"blue",True)
+tratamento_Isomerico('Espectroscopia Mössbauer\Dados\Mossbauer_data\Hematita.txt',"green",True)
 
 #intereção quadrupolar
 def interacao_quadruplar(file_name, cor, altura):
@@ -80,9 +80,9 @@ def interacao_quadruplar(file_name, cor, altura):
     plt.savefig("Espectroscopia Mössbauer/graficos_Quadrupolar/" + legenda_graficos + '.png')
     plt.show()
 # interacao_quadruplar('Espectroscopia Mössbauer\Dados\Mossbauer_data\Fe-alpha.txt')
-# # interacao_quadruplar(r'Espectroscopia Mössbauer\Dados\Mossbauer_data\aco_inox.txt')
-# interacao_quadruplar('Espectroscopia Mössbauer\Dados\Mossbauer_data\FeSO4.txt',cor="blue",altura=-5e5)
-# interacao_quadruplar('Espectroscopia Mössbauer\Dados\Mossbauer_data\Hematita.txt',cor="green",altura=-1.4e5)
+# interacao_quadruplar(r'Espectroscopia Mössbauer\Dados\Mossbauer_data\aco_inox.txt')
+interacao_quadruplar('Espectroscopia Mössbauer\Dados\Mossbauer_data\FeSO4.txt',cor="blue",altura=-5e5)
+interacao_quadruplar('Espectroscopia Mössbauer\Dados\Mossbauer_data\Hematita.txt',cor="green",altura=-1.4e5)
 
 def interacoes_heperfinas(file_name,cor,altura):
     # Ler dados do arquivo
@@ -128,12 +128,12 @@ def interacoes_heperfinas(file_name,cor,altura):
     plt.ylabel('Contagem de fontos')
     plt.title(f'Interação Hiperfina {legenda_graficos}')
     plt.legend()
-    plt.savefig("Espectroscopia Mössbauer\grafico_hiperfino" + legenda_graficos + '.png')
+    plt.savefig("Espectroscopia Mössbauer/grafico_hiperfino/" + legenda_graficos + '.png')
 
     plt.show()
     
 interacoes_heperfinas('Espectroscopia Mössbauer\Dados\Mossbauer_data\Fe-alpha.txt',"red",altura=-1.4e7)
-# interacoes_heperfinas(r'Espectroscopia Mössbauer\Dados\Mossbauer_data\aco_inox.txt',"gray")
+interacoes_heperfinas(r'Espectroscopia Mössbauer\Dados\Mossbauer_data\aco_inox.txt',"gray",altura=-1.4e4)
 interacoes_heperfinas('Espectroscopia Mössbauer\Dados\Mossbauer_data\FeSO4.txt',"blue",altura=-5e5)
 interacoes_heperfinas('Espectroscopia Mössbauer\Dados\Mossbauer_data\Hematita.txt',"green",altura=-1.4e5)
     
