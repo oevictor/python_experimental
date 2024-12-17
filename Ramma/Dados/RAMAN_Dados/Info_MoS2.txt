@@ -1,0 +1,47 @@
+****************************************************
+INFORMAÇÕES ESPECTRAIS:
+****************************************************
+AMOSTRA MoS2
+****************************************************
+Single Spectrum_063
+
+General:
+System ID:	100-1400-1232
+Time:	9:11:57 AM
+Date:	Friday, November 08, 2024
+User Name:	user
+Sample Name:	
+Configuration:	Raman CCD1
+
+UHTS300S_VIS:
+Excitation Wavelength [nm]:	532.057
+Grating:	G2: 1800 g/mm BLZ=500nm
+Center Wavelength [nm]:	551.117
+Spectral Center [rel. 1/cm]:	649.999
+
+DU970P_BVF:
+Width [Pixels]:	1600
+Height [Pixels]:	200
+Temperature [°C]:	-59
+Integration Time [s]:	10.13610
+Camera Serial Nr.:	19267
+AD Converters:	AD1 (16Bit)
+Output Amplifier:	Conventional
+Vertical Shift Speed [µs]:	9.68
+Horizontal Shift Speed [MHz]:	0.05
+Preamplifier Gain:	4
+EMCCD Gain:	0
+ReadMode:	Single Track (Row 1 -> 100)
+
+Number Of Accumulations:	10
+Integration Time [s]:	10.13610
+
+Objective:
+Objective Name:	Nikon CF Plan ELWD 50x / 0.55
+Objective Magnification:	50.0
+
+Sample Location (global position):
+Position X [µm]:	8366.267
+Position Y [µm]:	-3443.730
+Position Z [µm]:	0.000
+****************************************************

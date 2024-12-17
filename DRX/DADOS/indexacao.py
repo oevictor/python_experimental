@@ -45,14 +45,7 @@ def identificar_picos():
     # podemos encontrar a
     print(f'Os valores de d_1 são {d_1}')
     
-    # for i in range(len(d_1)):
-    #     hkl = 1
-    #     d = d_1[1]
-    #     a = d*np.sqrt(hkl**2 + hkl**2 + hkl**2)
-    #     print(f'Pico {i+1} - a: {a} este pico foi encontrado usando o valor de d = {d} e hkl = {hkl}')
-    #     print(20*'-')
     
-
     hkl = 1
     d = d_1[0]
     a = d*np.sqrt(hkl**2 + hkl**2 + hkl**2)
@@ -63,9 +56,8 @@ def identificar_picos():
     #chamerei os indides de hkl
     for n in range(len(picos)):
         # a=5.619362828509709
-        # print(f'Esse é o a {a}')
         hkl=(a/d_1[n])**2
-        print(f'Pico {n+1} cuja posição é {d_1[n]} - hkl²: {hkl}')
+        print(f'Pico {n+1} cuja posição é {d_1[n]:.2f} - hkl²: {hkl:.2f}')
         
 
     
