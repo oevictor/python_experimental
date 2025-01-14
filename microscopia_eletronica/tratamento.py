@@ -1,7 +1,9 @@
-from pymatgen.core import Structure #imporante para a leitura do arquivo CIF
-from pymatgen.analysis.diffraction.xrd import XRDCalculator #importante para a simulação de difração de raios-X
+from pymatgen.core import Structure
+from pymatgen.analysis.diffraction.xrd import XRDCalculator
 import matplotlib.pyplot as plt
 import numpy as np
+
+from texttable import Texttable
 
 
 def identificar_picos():
@@ -19,18 +21,90 @@ def identificar_picos():
     # Criar um simulador de difração de raios-X
     xrd_calculator = XRDCalculator()
 
-
     # Gerar o padrão de difração
     xrd_pattern = xrd_calculator.get_pattern(estrutura)
-
 
     # Obter os dados de 2θ e intensidade
     dois_theta = xrd_pattern.x
     intensidade = xrd_pattern.y
 
+    # d_biblioteca = xrd_pattern.d_hkls
+    # print(f'valores de d segundo a biblioteca pymatgen {d_biblioteca}')
 
+    # identificar os planos cristalinos
     
     
+    table = Texttable()
+    table.set_cols_align(["c", "c", "c", "c", "c", "f", "f"])
+    table.set_cols_dtype(["i", "f", "f", "f", "i", "f", "f"])  # Tipos de coluna
+    table.add_row(["Pico", "2Theta", "Intensidade", "d", "Ordem de Reflexão", "a", "hkl²"])
+
+    d_1 = []
+    hkl_squared=[]
+    hkl_squared.append(3)# sei que a primeira refelxão é 111 e usei ela para calcular o valor de a
+    # Cálculo inicial e preenchimento da tabela
+    # for i in range(len(intensidade)):
+    for i in range(0,5):
+        for n in range(1, 2): #como a ordem das reflexoes não me interessa, vou considerar apenas a primeira ordem
+            d_valor = 1.54056 * n / (2 * np.sin(np.radians(dois_theta[i] / 2)))
+            if n == 1:
+                d_1.append(d_valor)
+            
+            # Cálculo de 'a' usando o primeiro valor de d_1
+            if i == 0:
+                hkl = 1  # Exemplo: hkl = 1 para o primeiro pico
+                a = d_valor * np.sqrt(hkl**2 + hkl**2 + hkl**2)
+                
+            else:
+                a = d_1[0] * np.sqrt(1**2 + 1**2 + 1**2)
+                # hkl=(a/d_valor)**2
+            # Cálculo de hkl²
+            
+            
+            hkl_squared_value=int((a / d_valor) ** 2)
+            hkl_squared.append (hkl_squared_value)
+            
+            # print(f'hkl_sq = {hkl_squared}')
+                        
+            # Testar as condições possíveis para haver um pico indexado corretamente
+            hkl_indices = []
+            for j in range(0, 4):
+                for z in range(0, 4):
+                    for v in range(0, 4):
+                        if (j**2 + z**2 + v**2) == hkl_squared_value or (j**2 + z**2 + v**2) == 3:
+                            hkl_indices.append(f'{j}{z}{v}')
+            
+            hkl_str = ', '.join(hkl_indices)
+            
+            print(hkl_str)
+            
+            
+            
+            
+            
+            # Adiciona os valores à tabela
+            table.add_row([i + 1, dois_theta[i], intensidade[i], d_valor, n, a, hkl_squared[i]])
+                      #testando as condições possiveis para haver um pico indexado corretamente TABELA DE CRISTALOGRAFIA VOLUME A
+            h=[]
+            k=[]
+            l=[]
+            for i in range(0,4):
+                h.append(i)
+                k.append(i)
+                l.append(i)
+                for j in h:
+                    for z in k:
+                        for v in l:
+                            if (j**2 + z**2 + v**2) == hkl_squared:
+                                print(f'hkl = {j}{z}{v} que correspodem ao hkl^2 {hkl_squared}')
+    # Imprime a tabela
+    print(table.draw())
+
+
+
+
+   
+
     # Plotar o difratograma
     plt.figure(figsize=(8, 6))
     plt.scatter(dois_theta, intensidade, label="Difratograma Simulado", color="blue")
@@ -39,48 +113,7 @@ def identificar_picos():
     plt.title("Difratograma de Raios X Simulado")
     plt.legend()
     plt.grid(True)
-    plt.show()    
-    
-    # identificar os planos cristalinos
-    #encontandos os indices hkl usando a lei de bragg 2dsin(theta)=n*lambda
-    # #primeiro passos é encontrar o d
-    d_1 = []
-    for i in range(len(intensidade)):
-        for n in range(1,4):
-            d = 1.54*n/(2*np.sin(np.radians(dois_theta[i]/2)))
-            
-            if n==1:
-                d_1.append(d)
-            print(f'Pico {i+1} - 2Theta: {dois_theta[i]}, Intensidade: {intensidade[i]}, d: {d}, ordem de reflexão: {n}')
-    # # Com o valor de d podemos encontrar os indices hkl, sabendo que a formula é d = a/sqrt(h^2+k^2+l^2) sem saber o valor de a
-    # # podemos usar a tabela de d do NaCl para encontrar os indices hkl, considerando a reflexão de ordem 1 e supondo que hkl =1
-    # # podemos encontrar a
-    print(f'Os valores de d_1 são {d_1}')
-    
-    
-    hkl = 1
-    d = d_1[0]
-    a = d*np.sqrt(hkl**2 + hkl**2 + hkl**2)
-    print(f'Pico {1} - a: {a} este pico foi encontrado usando o valor de d = {d} e hkl = {hkl}')
-    print(150*'-')
-    #sabendo que o valor de a=5.619 \\A podemos encontrar os indices hkl para os outros valores de n e indexar os picos de cada um desses valores
-    #para isso vamos usar a formula d = a/sqrt(h^2+k^2+l^2) e a tabela de d do NaCl
-    #chamerei os indides de hkl
-    for n in range(len(intensidade)):
-        # a=5.619362828509709
-        hkl=(a/d_1[n])**2
-        print(f'Pico {n+1} cuja posição é {d_1[n]:.2f} - hkl²: {hkl:.2f}')
-        
+    # plt.show()
 
-    
-    plt.scatter(dois_theta, intensidade)
-    plt.title('Padrão de Difração Do Ag')
-    plt.ylabel('Intensidade')
-    plt.xlabel('2Theta')
-    # plt.scatter(dados_x[picos], dados_y[picos], color='red')
-    plt.legend(['Dados', 'Picos'])
-    plt.show()
-    
-    return
-
+# Chamar a função
 identificar_picos()
